@@ -26,7 +26,9 @@ public class Ecpl_test {
         System.out.println("Starting setup...");
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
+//        options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         String tempDir = System.getProperty("java.io.tmpdir") + "/chrome_profile_" + System.currentTimeMillis();
         options.addArguments("--user-data-dir=" + tempDir);
         driver = new ChromeDriver(options);
