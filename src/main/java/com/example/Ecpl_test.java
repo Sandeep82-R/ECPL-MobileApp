@@ -13,6 +13,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -36,26 +37,28 @@ public class Ecpl_test {
   }
 
   @Test
-  public void loginTest() throws InterruptedException, IOException {
-    
+  public void loginTest() throws IOException {
+      System.out.println("Navigating to https://www.amazon.in/");
       driver.get("https://www.amazon.in/");
-
-      driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]")).sendKeys("Testing 12333");
-      Thread.sleep(2500);
-      driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]")).clear();
-      Thread.sleep(2000);
-      driver.quit();
-   
-
+      try {
+          System.out.println("Waiting for search box...");
+          wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#twotabsearchtextbox"))).sendKeys("Testing 12333");
+          System.out.println("Entered text in search box.");
+          wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#twotabsearchtextbox"))).clear();
+          System.out.println("Cleared search box.");
+         
+      } catch (Exception e) {
+          System.err.println("Error in loginTest: " + e.getMessage());
+          throw e;
+      }
   }
 
   @AfterClass
   public void tearDown() {
+      System.out.println("Tearing down...");
       if (driver != null) {
           driver.quit();
       }
+      System.out.println("Browser closed.");
   }
-  
 }
-
-
