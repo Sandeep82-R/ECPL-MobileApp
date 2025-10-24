@@ -24,11 +24,11 @@ public class Ecpl_test {
     @BeforeClass
     public void setup() {
         System.out.println("Starting setup...");
-        System.out.println("DISPLAY environment variable: " + System.getenv("DISPLAY"));
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        // Graphical interface enabled (headless commented out)
         // options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
+        String tempDir = System.getProperty("java.io.tmpdir") + "/chrome_profile_" + System.currentTimeMillis();
+        options.addArguments("--user-data-dir=" + tempDir);
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         System.out.println("Setup complete. Browser initialized.");
@@ -39,7 +39,6 @@ public class Ecpl_test {
         System.out.println("Navigating to https://www.amazon.in/");
         driver.get("https://www.amazon.in/");
         try {
-            System.out.println("Page title: " + driver.getTitle());
             System.out.println("Waiting for search box...");
             wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#twotabsearchtextbox"))).sendKeys("Testing 12333");
             System.out.println("Entered text in search box.");
