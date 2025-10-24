@@ -24,11 +24,11 @@ public class Ecpl_test {
     @BeforeClass
     public void setup() {
         System.out.println("Starting setup...");
-        System.out.println("DISPLAY environment variable: " + System.getenv("DISPLAY"));
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        // Graphical interface enabled (headless commented out)
-        // options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
+        options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
+        String tempDir = System.getProperty("java.io.tmpdir") + "/chrome_profile_" + System.currentTimeMillis();
+        options.addArguments("--user-data-dir=" + tempDir);
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         System.out.println("Setup complete. Browser initialized.");
