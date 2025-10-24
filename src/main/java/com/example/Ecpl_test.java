@@ -27,12 +27,8 @@ public class Ecpl_test {
   @BeforeClass
   public void setup() {
 	  WebDriverManager.chromedriver().setup();
-      ChromeOptions options = new ChromeOptions();
-      options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
-      // Specify a unique user data directory
-      String tempDir = System.getProperty("java.io.tmpdir") + "/chrome_profile_" + System.currentTimeMillis();
-      options.addArguments("--user-data-dir=" + tempDir);
-      driver = new ChromeDriver(options);
+      driver = new ChromeDriver();
+
       wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   }
 
