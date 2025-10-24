@@ -11,6 +11,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -24,6 +26,9 @@ public class Ecpl_test {
       // WebDriverManager will download and set up the correct ChromeDriver
       WebDriverManager.chromedriver().setup();
       driver = new ChromeDriver();
+//      ChromeOptions options = new ChromeOptions();
+//      options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
+//      driver = new ChromeDriver(options);
   }
 
   @Test
