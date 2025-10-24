@@ -1,7 +1,6 @@
 package com.example;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -23,21 +22,18 @@ public class Ecpl_test {
 
     @BeforeClass
     public void setup() {
-        System.out.println("Starting setup...");
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        String tempDir = System.getProperty("java.io.tmpdir") + "/chrome_profile_" + System.currentTimeMillis();
-        options.addArguments("--user-data-dir=" + tempDir);
-        driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        System.out.println("Setup complete. Browser initialized.");
+    	 System.out.println("Starting setup...");
+    	    WebDriverManager.chromedriver().setup();
+    	    ChromeOptions options = new ChromeOptions();
+    	    options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
+    	    // ✅ No user-data-dir argument
+    	    driver = new ChromeDriver(options);
+    	    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    	    System.out.println("Setup complete. Browser initialized.");
     }
 
     @Test
-    public void loginTest() throws IOException {
+    public void loginTest() throws Exception {
         System.out.println("Navigating to https://www.amazon.in/");
         driver.get("https://www.amazon.in/");
         try {
@@ -45,6 +41,7 @@ public class Ecpl_test {
             System.out.println("Waiting for search box...");
             wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#twotabsearchtextbox"))).sendKeys("Testing 12333");
             System.out.println("Entered text in search box.");
+            Thread.sleep(2000);
             wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#twotabsearchtextbox"))).clear();
             System.out.println("Cleared search box.");
         } catch (Exception e) {
